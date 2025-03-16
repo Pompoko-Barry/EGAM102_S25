@@ -8,6 +8,8 @@ public class WinNextScene : MonoBehaviour
 
     private bool isColliding = false;
 
+    private float collisionTime = 0f;
+
 
     //private Animator CircleSizeIncrease;
 
@@ -20,9 +22,14 @@ public class WinNextScene : MonoBehaviour
     void Update()
     {
         if (isColliding)
-        {
+        { 
+            collisionTime += Time.deltaTime;
+            if (collisionTime >= delayTime)
+         {
             StartCoroutine(LoadNextSceneAfterDelay());
             isColliding = false; //so that it only happens once
+            //collisionTime = 0f;
+         }
         }
         
     }
@@ -42,6 +49,16 @@ public class WinNextScene : MonoBehaviour
         // }
 
     }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isColliding = false; //to stop timer is Player tagged exits collider zone
+          //  collisionTime = 0f; //to reset timer
+        }
+    }
+
 
     IEnumerator LoadNextSceneAfterDelay()
     {
