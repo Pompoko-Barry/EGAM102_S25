@@ -9,6 +9,9 @@ public class RightStick : MonoBehaviour
 
     public string gameWorldTag = "Game World"; //the tag of objects it will stick to
 
+    public Color ogColor;
+    public Color newColor;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -63,6 +66,9 @@ public class RightStick : MonoBehaviour
 
         //set isStuck flag to true
         isStuck = true;
+
+        //change color to new color
+        GetComponent<Renderer>().material.color = Color.red;
     }
 
     private void UnstickObject()
@@ -76,5 +82,9 @@ public class RightStick : MonoBehaviour
         //reset the isStuck flag
         isStuck = false;
         collidedObjectRb = null;
+
+
+        //return to orignal color
+        GetComponent<Renderer>().material.color = Color.white;
     }
 }
